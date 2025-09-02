@@ -8,33 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		CC6DF69D2E66009B00DA66B0 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = CC6DF69C2E66009B00DA66B0 /* RealityKitContent */; };
+		CC8EF6452E67384600950799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC8EF6402E67384600950799 /* Assets.xcassets */; };
+		CC8EF6472E67384600950799 /* FBIWantedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF6412E67384600950799 /* FBIWantedApp.swift */; };
+		CC8EF6482E67384600950799 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF6432E67384600950799 /* LaunchView.swift */; };
+		CC8EF64B2E6738E100950799 /* Persons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF64A2E6738E100950799 /* Persons.swift */; };
+		CC8EF64E2E673F1400950799 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF64D2E673F1400950799 /* Person.swift */; };
+		CC8EF6502E674C0200950799 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF64F2E674C0200950799 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CC6DF6972E66009B00DA66B0 /* FBIWanted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBIWanted.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC6DF69B2E66009B00DA66B0 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		CC8EF6402E67384600950799 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC8EF6412E67384600950799 /* FBIWantedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBIWantedApp.swift; sourceTree = "<group>"; };
+		CC8EF6422E67384600950799 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC8EF6432E67384600950799 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		CC8EF64A2E6738E100950799 /* Persons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persons.swift; sourceTree = "<group>"; };
+		CC8EF64D2E673F1400950799 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		CC8EF64F2E674C0200950799 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		CC6DF6A52E66009B00DA66B0 /* Exceptions for "FBIWanted" folder in "FBIWanted" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = CC6DF6962E66009B00DA66B0 /* FBIWanted */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		CC6DF6992E66009B00DA66B0 /* FBIWanted */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				CC6DF6A52E66009B00DA66B0 /* Exceptions for "FBIWanted" folder in "FBIWanted" target */,
-			);
-			path = FBIWanted;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CC6DF6942E66009B00DA66B0 /* Frameworks */ = {
@@ -51,7 +43,7 @@
 		CC6DF68E2E66009B00DA66B0 = {
 			isa = PBXGroup;
 			children = (
-				CC6DF6992E66009B00DA66B0 /* FBIWanted */,
+				CC8EF6442E67384600950799 /* FBIWanted */,
 				CC6DF69A2E66009B00DA66B0 /* Packages */,
 				CC6DF6982E66009B00DA66B0 /* Products */,
 			);
@@ -73,6 +65,36 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		CC8EF6442E67384600950799 /* FBIWanted */ = {
+			isa = PBXGroup;
+			children = (
+				CC8EF6402E67384600950799 /* Assets.xcassets */,
+				CC8EF6412E67384600950799 /* FBIWantedApp.swift */,
+				CC8EF6422E67384600950799 /* Info.plist */,
+				CC8EF64C2E673CE600950799 /* Classes */,
+				CC8EF6492E67384E00950799 /* Views */,
+			);
+			path = FBIWanted;
+			sourceTree = "<group>";
+		};
+		CC8EF6492E67384E00950799 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC8EF6432E67384600950799 /* LaunchView.swift */,
+				CC8EF64F2E674C0200950799 /* DetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CC8EF64C2E673CE600950799 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				CC8EF64A2E6738E100950799 /* Persons.swift */,
+				CC8EF64D2E673F1400950799 /* Person.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -87,9 +109,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				CC6DF6992E66009B00DA66B0 /* FBIWanted */,
 			);
 			name = FBIWanted;
 			packageProductDependencies = (
@@ -138,6 +157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC8EF6452E67384600950799 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +168,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC8EF64B2E6738E100950799 /* Persons.swift in Sources */,
+				CC8EF6472E67384600950799 /* FBIWantedApp.swift in Sources */,
+				CC8EF64E2E673F1400950799 /* Person.swift in Sources */,
+				CC8EF6502E674C0200950799 /* DetailView.swift in Sources */,
+				CC8EF6482E67384600950799 /* LaunchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
