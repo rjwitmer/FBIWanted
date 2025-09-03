@@ -31,25 +31,28 @@ struct DetailView: View {
                             .stroke(Color.white.opacity(0.5), lineWidth: 1)
                     }
                 
+
+                
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("Sex: ")
+                        Text("Subjects: ")
                             .foregroundStyle(Color.red)
                         
-                        Text(person.sex.capitalized)
-
+                        Text(person.subjects.joined(separator: ", ")) // TODO: Change to returned
+                        
                     }
                     .font(.largeTitle)
-
+                    
                 }
             }
             
             VStack(alignment: .leading) {
-                HStack {
-                    Text("Description:")
-                        .foregroundStyle(Color.red)
-                    Text("Witmer")
-                }
+                
+                Text("Description:")
+                    .foregroundStyle(Color.red)
+                Text(person.description)
+                    .font(.title2)
+                
             }
             .font(.largeTitle)
             
@@ -59,5 +62,5 @@ struct DetailView: View {
 }
 
 #Preview {
-    DetailView(person: Person(title: "Dante Witmer"))
+    DetailView(person: Person(title: "Dante Witmer", description: "I am a very good man.", subjects: ["Test Subject"]))
 }
