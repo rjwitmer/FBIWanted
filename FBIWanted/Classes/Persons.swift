@@ -41,6 +41,8 @@ class Persons: Codable {
             Task { @MainActor in
                 self.total = returned.total
                 self.personsArray = self.personsArray + returned.items
+                
+                
                 isLoading = false
             }
             

@@ -33,16 +33,26 @@ struct DetailView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("Date of Last Contact: ")
+                        Text("Sex: ")
                             .foregroundStyle(Color.red)
                         
-                        Text("Witmer")
+                        Text(person.sex.capitalized)
 
                     }
                     .font(.largeTitle)
 
                 }
             }
+            
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Description:")
+                        .foregroundStyle(Color.red)
+                    Text("Witmer")
+                }
+            }
+            .font(.largeTitle)
+            
             Spacer()
         }
     }
