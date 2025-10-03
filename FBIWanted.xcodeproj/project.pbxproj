@@ -11,7 +11,7 @@
 		CC8EF6452E67384600950799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC8EF6402E67384600950799 /* Assets.xcassets */; };
 		CC8EF6472E67384600950799 /* FBIWantedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF6412E67384600950799 /* FBIWantedApp.swift */; };
 		CC8EF6482E67384600950799 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF6432E67384600950799 /* LaunchView.swift */; };
-		CC8EF64B2E6738E100950799 /* Persons.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF64A2E6738E100950799 /* Persons.swift */; };
+		CC8EF64B2E6738E100950799 /* PersonsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF64A2E6738E100950799 /* PersonsVM.swift */; };
 		CC8EF64E2E673F1400950799 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF64D2E673F1400950799 /* Person.swift */; };
 		CC8EF6502E674C0200950799 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF64F2E674C0200950799 /* DetailView.swift */; };
 /* End PBXBuildFile section */
@@ -23,7 +23,7 @@
 		CC8EF6412E67384600950799 /* FBIWantedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBIWantedApp.swift; sourceTree = "<group>"; };
 		CC8EF6422E67384600950799 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC8EF6432E67384600950799 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
-		CC8EF64A2E6738E100950799 /* Persons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persons.swift; sourceTree = "<group>"; };
+		CC8EF64A2E6738E100950799 /* PersonsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonsVM.swift; sourceTree = "<group>"; };
 		CC8EF64D2E673F1400950799 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		CC8EF64F2E674C0200950799 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,6 +65,14 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		CC736EF52E8C58BB00E0B6E6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CC8EF64A2E6738E100950799 /* PersonsVM.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		CC8EF6442E67384600950799 /* FBIWanted */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +80,7 @@
 				CC8EF6412E67384600950799 /* FBIWantedApp.swift */,
 				CC8EF6422E67384600950799 /* Info.plist */,
 				CC8EF64C2E673CE600950799 /* Classes */,
+				CC736EF52E8C58BB00E0B6E6 /* ViewModels */,
 				CC8EF6492E67384E00950799 /* Views */,
 			);
 			path = FBIWanted;
@@ -89,7 +98,6 @@
 		CC8EF64C2E673CE600950799 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CC8EF64A2E6738E100950799 /* Persons.swift */,
 				CC8EF64D2E673F1400950799 /* Person.swift */,
 			);
 			path = Classes;
@@ -168,7 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC8EF64B2E6738E100950799 /* Persons.swift in Sources */,
+				CC8EF64B2E6738E100950799 /* PersonsVM.swift in Sources */,
 				CC8EF6472E67384600950799 /* FBIWantedApp.swift in Sources */,
 				CC8EF64E2E673F1400950799 /* Person.swift in Sources */,
 				CC8EF6502E674C0200950799 /* DetailView.swift in Sources */,

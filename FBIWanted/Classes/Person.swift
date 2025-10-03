@@ -13,11 +13,19 @@ struct Person: Codable, Identifiable {
     var title: String = ""      // FBI Full Name in Caps
     var description: String = ""       // Details
     var subjects:[String] = []  // Subjects array
+    var aliases: [String]?   // Array of aliases, could be null
+    var images: [PersonImage]?  // Array of String URL of the person images
     
     enum CodingKeys: CodingKey {    // Ignore the id when decoding
         case title
         case description
         case subjects
+        case aliases
+        case images
     }
+}
+
+struct PersonImage: Codable {
+    var large: String?
 }
 

@@ -8,23 +8,29 @@
 import Foundation
 
 @Observable
-class Persons: Codable {
+class PersonsVM: Codable {
     private struct Returned: Codable {
         var total: Int
         var items: [Person]
+        var page: Int
     }
     
+
     var urlString: String = "https://api.fbi.gov/wanted/v1/list"
     var total: Int = 0
     var personsArray: [Person] = []
+    var page: Int = 1
+    var pageParm: String = ""
     var isLoading: Bool = false
     
     func getData() async {
-        print("🕸️ We are accessing url: \(urlString)")
+        pageParm = "?page=\(page)"
+        
+        print("🕸️ We are accessing url: \(urlString + pageParm)")
         isLoading = true
         // Create a URL
-        guard let url = URL(string: urlString) else {
-            print("😡 ERROR: Could not create a URL from: \(urlString)")
+        guard let url = URL(string: urlString + pageParm) else {
+            print("😡 ERROR: Could not create a URL from: \(urlString + pageParm)")
             isLoading = false
             return
         }
@@ -41,7 +47,8 @@ class Persons: Codable {
             Task { @MainActor in
                 self.total = returned.total
                 self.personsArray = self.personsArray + returned.items
-                
+                self.page = returned.page
+                print("Total: \(self.total)")
                 
                 isLoading = false
             }
@@ -51,6 +58,25 @@ class Persons: Codable {
         } catch {
             print("😡 ERROR: Could not get data from: \(urlString)")
             isLoading = false
+        }
+    }
+    
+    func getNextPage() async {
+        if page < total / 20 {
+            page += 1
+            await getData()
+        }
+    }
+    
+    func loadAll() async {
+        Task { @MainActor in
+            if page < total / 20 {
+                page += 1
+                await getData() // Get Next Page of data
+                await loadAll() // Recursive call until nextPageURL is null
+            } else {
+                return
+            }
         }
     }
 }
