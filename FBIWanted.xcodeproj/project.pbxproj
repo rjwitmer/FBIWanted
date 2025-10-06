@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CC6DF69D2E66009B00DA66B0 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = CC6DF69C2E66009B00DA66B0 /* RealityKitContent */; };
+		CC736EF72E9160C200E0B6E6 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC736EF62E9160C200E0B6E6 /* NetworkService.swift */; };
+		CC736EF92E92B1E000E0B6E6 /* FBIWantedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC736EF82E92B1E000E0B6E6 /* FBIWantedAPI.swift */; };
 		CC8EF6452E67384600950799 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC8EF6402E67384600950799 /* Assets.xcassets */; };
 		CC8EF6472E67384600950799 /* FBIWantedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF6412E67384600950799 /* FBIWantedApp.swift */; };
 		CC8EF6482E67384600950799 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8EF6432E67384600950799 /* LaunchView.swift */; };
@@ -19,6 +21,8 @@
 /* Begin PBXFileReference section */
 		CC6DF6972E66009B00DA66B0 /* FBIWanted.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FBIWanted.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC6DF69B2E66009B00DA66B0 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
+		CC736EF62E9160C200E0B6E6 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		CC736EF82E92B1E000E0B6E6 /* FBIWantedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBIWantedAPI.swift; sourceTree = "<group>"; };
 		CC8EF6402E67384600950799 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC8EF6412E67384600950799 /* FBIWantedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBIWantedApp.swift; sourceTree = "<group>"; };
 		CC8EF6422E67384600950799 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				CC8EF64D2E673F1400950799 /* Person.swift */,
+				CC736EF62E9160C200E0B6E6 /* NetworkService.swift */,
+				CC736EF82E92B1E000E0B6E6 /* FBIWantedAPI.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -177,9 +183,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC8EF64B2E6738E100950799 /* PersonsVM.swift in Sources */,
+				CC736EF92E92B1E000E0B6E6 /* FBIWantedAPI.swift in Sources */,
 				CC8EF6472E67384600950799 /* FBIWantedApp.swift in Sources */,
 				CC8EF64E2E673F1400950799 /* Person.swift in Sources */,
 				CC8EF6502E674C0200950799 /* DetailView.swift in Sources */,
+				CC736EF72E9160C200E0B6E6 /* NetworkService.swift in Sources */,
 				CC8EF6482E67384600950799 /* LaunchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

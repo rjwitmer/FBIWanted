@@ -15,7 +15,7 @@ struct DetailView: View {
         
         VStack(alignment: .leading) {
             Text(person.title.capitalized)
-                .font(Font.custom("AvenidaNext-Bold", fixedSize: 24))
+                .font(.title)
                 .fontWeight(.bold)
             
             Rectangle()     // Create a separator line

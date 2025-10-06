@@ -10,7 +10,7 @@ import RealityKit
 import RealityKitContent
 
 struct LaunchView: View {
-    @State var personsVM: PersonsVM = PersonsVM()
+    @StateObject var personsVM: PersonsVM = PersonsVM()
     @State private var searchText: String = ""
     
     var body: some View {
@@ -29,12 +29,7 @@ struct LaunchView: View {
                         Spacer()
                     }
 //                    .task {
-//                        if personsVM.page < personsVM.total/20 {   // API uses 20 persons per page
-//                            personsVM.page += 1
-//                            await personsVM.getNextPage()
-//                        } else {
-//                            return
-//                        }
+//                        await personsVM.getNextPage()
 //                    }
                 }
                 .listStyle(.automatic)
@@ -49,7 +44,7 @@ struct LaunchView: View {
                                 await personsVM.loadAll()
                             }
                         }
-
+                        
                     }
                     ToolbarItem(placement: .bottomBar) {
                         Button("Next Page") {
@@ -69,8 +64,10 @@ struct LaunchView: View {
             }
         }
         .padding()
-        .task {
-            await personsVM.getData()
+        .onAppear {
+            Task {
+                await personsVM.getData()
+            }
         }
     }
     

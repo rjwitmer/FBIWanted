@@ -7,75 +7,55 @@
 
 import Foundation
 
-@Observable
-class PersonsVM: Codable {
-    private struct Returned: Codable {
-        var total: Int
-        var items: [Person]
-        var page: Int
-    }
+@MainActor
+class PersonsVM: ObservableObject {
     
-
-    var urlString: String = "https://api.fbi.gov/wanted/v1/list"
-    var total: Int = 0
-    var personsArray: [Person] = []
-    var page: Int = 1
-    var pageParm: String = ""
+    @Published var personsArray: [Person] = []
+    @Published var total: Int = 0
+    @Published var errorMessage: String?
+    
+    private let networkService: NetworkService = NetworkService()
     var isLoading: Bool = false
+    var moreData: Bool = true
     
     func getData() async {
-        pageParm = "?page=\(page)"
         
-        print("🕸️ We are accessing url: \(urlString + pageParm)")
         isLoading = true
-        // Create a URL
-        guard let url = URL(string: urlString + pageParm) else {
-            print("😡 ERROR: Could not create a URL from: \(urlString + pageParm)")
-            isLoading = false
-            return
-        }
-        
-        do {
-            let (data, _) = try await URLSession.shared.data(from: url)      // '_' could be replaced with 'response' but is not used in this app
-            
-            // Try to decode the JSON data into our own data structures
-            guard let returned = try? JSONDecoder().decode(Returned.self, from: data) else {
-                print("😡 JSON ERROR: Could not decode JSON data")
-                isLoading = false
-                return
+        Task {
+            do {
+                let decodedData = try await networkService.fetchData()
+                DispatchQueue.main.async {
+                    if decodedData.items.isEmpty {
+                        self.moreData = false
+                        print("No more data")
+                    } else {
+                        self.personsArray.append(contentsOf: decodedData.items)
+                        self.total = decodedData.total
+    //                    print("Total: \(self.total)")
+    //                    print("Total in Array: \(self.personsArray.count)")
+                        self.isLoading = false
+                    }
+
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.errorMessage = "😡 ERROR: Problem fetching data: \(error.localizedDescription)"
+                }
             }
-            Task { @MainActor in
-                self.total = returned.total
-                self.personsArray = self.personsArray + returned.items
-                self.page = returned.page
-                print("Total: \(self.total)")
-                
-                isLoading = false
-            }
-            
-            
-            
-        } catch {
-            print("😡 ERROR: Could not get data from: \(urlString)")
-            isLoading = false
         }
     }
     
     func getNextPage() async {
-        if page < total / 20 {
-            page += 1
-            await getData()
-        }
+            Task {
+                await self.getData()
+            }
     }
     
     func loadAll() async {
-        Task { @MainActor in
-            if page < total / 20 {
-                page += 1
-                await getData() // Get Next Page of data
+        Task {
+            await getData() // Get Next Page of data
+            if self.moreData {
                 await loadAll() // Recursive call until nextPageURL is null
-            } else {
-                return
             }
         }
     }
