@@ -10,6 +10,7 @@ import SwiftUI
 struct DetailView: View {
     let person: Person
     @State private var personImageIndex: Int = 0
+    @State private var aliasIndex: Int = 0
     
     var body: some View {
         
@@ -25,15 +26,15 @@ struct DetailView: View {
             
             HStack {
                 personImage
-//                Image(systemName: "person.fill")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .clipShape(RoundedRectangle(cornerRadius: 16))
-//                    .shadow(radius: 8, x: 5, y: 5)
-//                    .overlay {
-//                        RoundedRectangle(cornerRadius: 16)
-//                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
-//                    }
+                //                Image(systemName: "person.fill")
+                //                    .resizable()
+                //                    .scaledToFit()
+                //                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                //                    .shadow(radius: 8, x: 5, y: 5)
+                //                    .overlay {
+                //                        RoundedRectangle(cornerRadius: 16)
+                //                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                //                    }
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -63,11 +64,13 @@ struct DetailView: View {
                     Text("None")
                         .font(.title3)
                 } else {
-                    List(person.aliases!, id: \.self) { alias in
-                        Text(alias)
+                    if person.aliases!.count > 1 {
+                        Stepper(person.aliases![aliasIndex], value: $aliasIndex, in: 0...person.aliases!.count-1)
+                            .font(.title3)
+                    } else {
+                        Text(person.aliases!.first ?? "")
                             .font(.title3)
                     }
-                    .listStyle(.plain)
                 }
                 
             }
@@ -103,7 +106,7 @@ extension DetailView {
                             .stroke(.white.opacity(0.5), lineWidth: 1)
                     }
             } else {    // Use a placeholder - image loading
-
+                
                 ProgressView()
                     .tint(Color.red)
                     .scaleEffect(4.0)
@@ -117,5 +120,5 @@ extension DetailView {
 
 #Preview {
     DetailView(person: Person(title: "Dante Witmer", description: "I am a very good boy.", subjects: ["Wanted English Spriger Spaniel"], aliases: ["Buddy"], images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg")]))
-
+    
 }

@@ -39,6 +39,7 @@ class PersonsVM: ObservableObject {
                 }
             } catch {
                 DispatchQueue.main.async {
+                    self.isLoading = false
                     self.errorMessage = "😡 ERROR: Problem fetching data: \(error.localizedDescription)"
                 }
             }
@@ -47,14 +48,18 @@ class PersonsVM: ObservableObject {
     
     func getNextPage() async {
             Task {
+                self.isLoading = true
+                try await Task.sleep(nanoseconds: 500_000_000)  // Add a 0.5 second delay on recursive calls
                 await self.getData()
             }
     }
     
     func loadAll() async {
         Task {
-            await getData() // Get Next Page of data
-            if self.moreData {
+            self.isLoading = true
+            try await Task.sleep(nanoseconds: 500_000_000)  // Add a 0.5 second delay on recursive calls
+            if self.moreData {  // Check if the last call returned data and end recursive calls if no more data
+                await getData() // Get Next Page of data
                 await loadAll() // Recursive call until nextPageURL is null
             }
         }
