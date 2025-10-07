@@ -10,7 +10,9 @@ import SwiftUI
 struct DetailView: View {
     let person: Person
     @State private var personImageIndex: Int = 0
-    @State private var aliasIndex: Int = 0
+    @State private var dobIndex: Int = 0
+    @State private var selectAlias: Int = 0
+    @State private var selectDOB: Int = 0
     
     var body: some View {
         
@@ -26,22 +28,13 @@ struct DetailView: View {
             
             HStack {
                 personImage
-                //                Image(systemName: "person.fill")
-                //                    .resizable()
-                //                    .scaledToFit()
-                //                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                //                    .shadow(radius: 8, x: 5, y: 5)
-                //                    .overlay {
-                //                        RoundedRectangle(cornerRadius: 16)
-                //                            .stroke(Color.white.opacity(0.5), lineWidth: 1)
-                //                    }
                 
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Subjects: ")
                             .foregroundStyle(Color.red)
                         
-                        Text(person.subjects.joined(separator: ", ")) // TODO: Change to returned
+                        Text(person.subjects.joined(separator: ", "))
                         
                     }
                     .font(.largeTitle)
@@ -58,20 +51,49 @@ struct DetailView: View {
                     .foregroundStyle(Color.red)
                 Text(person.description)
                     .font(.title2)
-                Text("Aliases:")
-                    .foregroundStyle(Color.red)
-                if person.aliases == nil {
-                    Text("None")
-                        .font(.title3)
-                } else {
-                    if person.aliases!.count > 1 {
-                        Stepper(person.aliases![aliasIndex], value: $aliasIndex, in: 0...person.aliases!.count-1)
-                            .font(.title3)
-                    } else {
-                        Text(person.aliases!.first ?? "")
-                            .font(.title3)
+                Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
+                    GridRow {
+                        Text("Aliases:")
+                            .foregroundStyle(Color.red)
+                        if person.aliases == nil {
+                            Text("None")
+                        } else {
+                            if person.aliases!.count > 1 {
+                                Picker(selection: $selectAlias, label: Text("Alias:")) {
+                                    ForEach(0..<person.aliases!.count, id: \.self) {
+                                        Text("\(person.aliases![$0])")
+                                    }
+                                }
+                            } else {
+                                Text(person.aliases!.first ?? "")
+                            }
+                        }
+                   }
+                    GridRow {
+                        Text("Date(s) of Birth:")
+                            .foregroundStyle(Color.red)
+                        if person.dates_of_birth_used == nil {
+                            Text("None")
+                        } else {
+                        if person.dates_of_birth_used!.count > 1 {
+//                            Stepper("\(person.dates_of_birth_used![dobIndex])", value: $dobIndex, in: 0...person.dates_of_birth_used!.count-1)
+                            Picker(selection: $selectDOB, label: Text("DOB:")) {
+                                ForEach(0..<person.dates_of_birth_used!.count, id: \.self) {
+                                    Text("\(person.dates_of_birth_used![$0])")
+                                }
+                            }
+
+                        } else {
+                            Text("\(person.dates_of_birth_used!.first ?? "None")")
+                        }
+                    }
                     }
                 }
+               .font(.title2)
+                
+
+
+                
                 
             }
             .font(.largeTitle)
@@ -90,6 +112,7 @@ extension DetailView {
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                     .shadow(radius: 8, x: 5, y: 5)
+                    .frame(height: 225)
                     .overlay {
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(.white.opacity(0.5), lineWidth: 1)
@@ -119,6 +142,6 @@ extension DetailView {
 }
 
 #Preview {
-    DetailView(person: Person(title: "Dante Witmer", description: "I am a very good boy.", subjects: ["Wanted English Spriger Spaniel"], aliases: ["Buddy"], images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg")]))
+    DetailView(person: Person(title: "Dante Witmer", description: "I am a very good boy.", subjects: ["Wanted English Spriger Spaniel"], aliases: ["Buddy","Good Boy"], images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg")]))
     
 }

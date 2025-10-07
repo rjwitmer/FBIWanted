@@ -15,6 +15,7 @@ struct Person: Codable, Identifiable {
     var subjects:[String] = []  // Subjects array
     var aliases: [String]?   // Array of aliases, could be null
     var images: [PersonImage]?  // Array of String URL of the person images
+    var dates_of_birth_used: [String]?  // Array of birth dates
     
     enum CodingKeys: CodingKey {    // Ignore the id when decoding
         case title
@@ -22,6 +23,7 @@ struct Person: Codable, Identifiable {
         case subjects
         case aliases
         case images
+        case dates_of_birth_used
     }
 }
 

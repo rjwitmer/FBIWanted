@@ -12,6 +12,7 @@ import RealityKitContent
 struct LaunchView: View {
     @StateObject var personsVM: PersonsVM = PersonsVM()
     @State private var searchText: String = ""
+    private let networkService: NetworkService = NetworkService()
     
     var body: some View {
         NavigationStack {
@@ -28,7 +29,7 @@ struct LaunchView: View {
                         
                         Spacer()
                     }
-//                    .task {
+//                    .task {   // Allows lazy loading of the next page during scrolling, but doesn't function well with this API
 //                        await personsVM.getNextPage()
 //                    }
                 }
