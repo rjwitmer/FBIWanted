@@ -16,25 +16,33 @@ struct DetailView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
+        List {
             Text(person.title.capitalized)
                 .font(.title)
                 .fontWeight(.bold)
             
-            Rectangle()     // Create a separator line
-                .frame(height: 1)
-                .foregroundStyle(Color.white)
-                .padding(.bottom)
+//            Rectangle()     // Create a separator line
+//                .frame(height: 1)
+//                .foregroundStyle(Color.white)
+//                .padding(.bottom)
             
             HStack {
                 personImage
                 
                 VStack(alignment: .leading) {
-                    HStack {
-                        Text("Subjects: ")
-                            .foregroundStyle(Color.red)
-                        
-                        Text(person.subjects.joined(separator: ", "))
+                    Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
+                        GridRow {
+                            Text("Subjects: ")
+                                .foregroundStyle(Color.indigo)
+                            
+                            Text(person.subjects.joined(separator: ", "))
+                        }
+                        GridRow {
+                            Text("Description:")
+                                .foregroundStyle(Color.indigo)
+                            
+                            Text(person.description)
+                        }
                         
                     }
                     .font(.largeTitle)
@@ -48,15 +56,15 @@ struct DetailView: View {
                         .frame(width: 200)
                 }
                 Text("Description:")
-                    .foregroundStyle(Color.red)
+                    .foregroundStyle(Color.indigo)
                 Text(person.description)
                     .font(.title2)
                 Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
                     GridRow {
                         Text("Aliases:")
-                            .foregroundStyle(Color.red)
+                            .foregroundStyle(Color.indigo)
                         if person.aliases == nil {
-                            Text("None")
+                            Text("unidentified")
                         } else {
                             if person.aliases!.count > 1 {
                                 Picker(selection: $selectAlias, label: Text("Alias:")) {
@@ -68,31 +76,122 @@ struct DetailView: View {
                                 Text(person.aliases!.first ?? "")
                             }
                         }
-                   }
+                    }
                     GridRow {
                         Text("Date(s) of Birth:")
-                            .foregroundStyle(Color.red)
+                            .foregroundStyle(Color.indigo)
                         if person.dates_of_birth_used == nil {
-                            Text("None")
+                            Text("unidentified")
                         } else {
-                        if person.dates_of_birth_used!.count > 1 {
-//                            Stepper("\(person.dates_of_birth_used![dobIndex])", value: $dobIndex, in: 0...person.dates_of_birth_used!.count-1)
-                            Picker(selection: $selectDOB, label: Text("DOB:")) {
-                                ForEach(0..<person.dates_of_birth_used!.count, id: \.self) {
-                                    Text("\(person.dates_of_birth_used![$0])")
+                            if person.dates_of_birth_used!.count > 1 {
+                                //                            Stepper("\(person.dates_of_birth_used![dobIndex])", value: $dobIndex, in: 0...person.dates_of_birth_used!.count-1)
+                                Picker(selection: $selectDOB, label: Text("DOB:")) {
+                                    ForEach(0..<person.dates_of_birth_used!.count, id: \.self) {
+                                        Text("\(person.dates_of_birth_used![$0])")
+                                    }
                                 }
+                                
+                            } else {
+                                Text("\(person.dates_of_birth_used!.first ?? "unidentified")")
                             }
-
-                        } else {
-                            Text("\(person.dates_of_birth_used!.first ?? "None")")
                         }
                     }
+                    GridRow {
+                        Text("Place of Birth:")
+                            .foregroundStyle(Color.indigo)
+                        if person.place_of_birth == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.place_of_birth!)")
+                        }
+                    }
+                    GridRow {
+                        Text("Hair:")
+                            .foregroundStyle(Color.indigo)
+                        if person.hair == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.hair!)")
+                        }
+                    }
+                    GridRow {
+                        Text("Eyes:")
+                            .foregroundStyle(Color.indigo)
+                        if person.eyes == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.eyes!)")
+                        }
+                    }
+                    GridRow {
+                        Text("Height:")
+                            .foregroundStyle(Color.indigo)
+//                        if person.height_min == nil && person.height_max == nil {
+//                            Text("unidentified")
+//                        } else if person.height_min == nil {
+//                            Text("\(person.height_max!)")
+//                        } else if person.height_max == nil {
+//                            Text("\(person.height_min!)")
+//                        } else {
+//                            Text("\(person.height_min!) - \(person.height_max!)")
+//                        }
+                        if person.height == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.height!)")
+                        }
+                    }
+                    GridRow {
+                        Text("Weight:")
+                            .foregroundStyle(Color.indigo)
+                        if person.weight == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.weight!)")
+                        }
+                    }
+                    GridRow {
+                        Text("Sex:")
+                            .foregroundStyle(Color.indigo)
+                        if person.sex == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.sex!)")
+                        }
+                    }
+                    GridRow {
+                        Text("Race:")
+                            .foregroundStyle(Color.indigo)
+                        if person.race == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.race!.capitalized)")
+                        }
                     }
                 }
-               .font(.title2)
+                .font(.title2)
                 
-
-
+                Text("Reward:")
+                    .foregroundStyle(Color.indigo)
+                if person.reward_text == nil {
+                    Text("unidentified")
+                } else {
+                    Text("\(person.reward_text!)")
+                }
+                Text("Remarks:")
+                    .foregroundStyle(Color.indigo)
+                if person.remarks == nil {
+                    Text("unidentified")
+                } else {
+                    Text("\(person.remarks!.htmlToString())")
+                }
+                Text("Details:")
+                    .foregroundStyle(Color.indigo)
+                if person.details == nil {
+                    Text("unidentified")
+                } else {
+                    Text("\(person.details!.htmlToString())")
+                }
                 
                 
             }
@@ -100,6 +199,14 @@ struct DetailView: View {
             
             Spacer()
         }
+    }
+}
+
+extension String {
+    func htmlToString() -> String {
+        return  try! NSAttributedString(data: self.data(using: .utf8)!,
+                                        options: [.documentType: NSAttributedString.DocumentType.html],
+                                        documentAttributes: nil).string
     }
 }
 
@@ -129,7 +236,7 @@ extension DetailView {
                             .stroke(.white.opacity(0.5), lineWidth: 1)
                     }
             } else {    // Use a placeholder - image loading
-                
+//                Text("Phase Error: \(phase.error?.localizedDescription ?? "No Error")")
                 ProgressView()
                     .tint(Color.red)
                     .scaleEffect(4.0)
@@ -142,6 +249,25 @@ extension DetailView {
 }
 
 #Preview {
-    DetailView(person: Person(title: "Dante Witmer", description: "I am a very good boy.", subjects: ["Wanted English Spriger Spaniel"], aliases: ["Buddy","Good Boy"], images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg")]))
+    DetailView(person: Person(title: "Dante Witmer",
+                              description: "I am a very good boy.",
+                              subjects: ["Wanted English Spriger Spaniel"],
+                              aliases: ["Buddy","Good Boy"],
+                              images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg")],
+                              dates_of_birth_used: ["September 7, 2014"],
+                              place_of_birth: "Nanjay, Markham, ON, Canada",
+                              hair: "Black and White",
+                              eyes: "Big and Brown",
+                              height: "15 in",
+//                              height_min: "15 in",
+//                              height_max: "16 in"
+                              weight: "19.2 Kg",
+                              sex: "Neutered Male",
+                              race: "English Springer Spaniel",
+                              reward_text: "Hugs and Kisses",
+                              remarks: "Approachable and friendly"
+                             )
+    )
+    
     
 }
