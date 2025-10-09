@@ -28,6 +28,9 @@ struct Person: Codable, Identifiable {
     var reward_text: String?  // Reward, if entered
     var remarks: String?  // Remarks, if entered
     var details: String?  // Details, if entered
+    var caution: String?  // Caution, if entered
+    var warning_message: String?  // Warning Message, if entered
+    var nationality: String?  // Nationality, if entered
     
     enum CodingKeys: CodingKey {    // Ignore the id when decoding
         case title
@@ -48,6 +51,9 @@ struct Person: Codable, Identifiable {
         case reward_text
         case remarks
         case details
+        case caution
+        case warning_message
+        case nationality
     }
 }
 

@@ -16,188 +16,229 @@ struct DetailView: View {
     
     var body: some View {
         
-        List {
-            Text(person.title.capitalized)
-                .font(.title)
-                .fontWeight(.bold)
-            
-//            Rectangle()     // Create a separator line
-//                .frame(height: 1)
-//                .foregroundStyle(Color.white)
-//                .padding(.bottom)
-            
-            HStack {
-                personImage
+        VStack {
+            List {
+                Text(person.title.capitalized)
+                    .font(.title)
+                    .fontWeight(.bold)
                 
-                VStack(alignment: .leading) {
-                    Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
-                        GridRow {
-                            Text("Subjects: ")
-                                .foregroundStyle(Color.indigo)
-                            
-                            Text(person.subjects.joined(separator: ", "))
+                HStack {
+                    VStack {
+                        personImage
+                        if person.images!.count > 1 {
+                            Stepper("Image:", value: $personImageIndex, in: 0...person.images!.count-1)
+                                .frame(width: 200)
                         }
-                        GridRow {
-                            Text("Description:")
-                                .foregroundStyle(Color.indigo)
-                            
-                            Text(person.description)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
+                            GridRow(alignment: .firstTextBaseline) {
+                                Text("Subjects: ")
+                                    .foregroundStyle(Color.indigo)
+                                
+                                Text(person.subjects.joined(separator: ", "))
+                            }
+                            Divider()
+                            GridRow(alignment: .firstTextBaseline) {
+                                Text("Description:")
+                                    .foregroundStyle(Color.indigo)
+                                Text(person.description)
+                                    .multilineTextAlignment(.leading)
+                                    .lineLimit(.max)
+                            }
                         }
+                        .font(.title)
                         
                     }
-                    .font(.largeTitle)
+                }
+                
+                Group {
+                    HStack {
+                        Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
+                            GridRow {
+                                Text("Aliases:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.aliases == nil {
+                                    Text("unidentified")
+                                } else {
+                                    if person.aliases!.count > 1 {
+                                        Picker(selection: $selectAlias, label: Text("")) {
+                                            ForEach(0..<person.aliases!.count, id: \.self) {
+                                                Text("\(person.aliases![$0])")
+                                            }
+                                        }
+                                    } else {
+                                        Text(person.aliases!.first ?? "")
+                                    }
+                                }
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Date(s) of Birth:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.dates_of_birth_used == nil {
+                                    Text("unidentified")
+                                } else {
+                                    if person.dates_of_birth_used!.count > 1 {
+                                        //                            Stepper("\(person.dates_of_birth_used![dobIndex])", value: $dobIndex, in: 0...person.dates_of_birth_used!.count-1)
+                                        Picker(selection: $selectDOB, label: Text("DOB:")) {
+                                            ForEach(0..<person.dates_of_birth_used!.count, id: \.self) {
+                                                Text("\(person.dates_of_birth_used![$0])")
+                                            }
+                                        }
+                                        
+                                    } else {
+                                        Text("\(person.dates_of_birth_used!.first ?? "unidentified")")
+                                    }
+                                }
+                            }
+                            Divider()
+                            
+                            GridRow {
+                                Text("Hair:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.hair == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.hair!)")
+                                }
+                            }
+                            Divider()
+
+                            GridRow {
+                                Text("Height:")
+                                    .foregroundStyle(Color.indigo)
+        //                        if person.height_min == nil && person.height_max == nil {
+        //                            Text("unidentified")
+        //                        } else if person.height_min == nil {
+        //                            Text("\(person.height_max!)")
+        //                        } else if person.height_max == nil {
+        //                            Text("\(person.height_min!)")
+        //                        } else {
+        //                            Text("\(person.height_min!) - \(person.height_max!)")
+        //                        }
+                                if person.height == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.height!)")
+                                }
+                            }
+                            Divider()
+                            
+                            GridRow {
+                                Text("Sex:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.sex == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.sex!)")
+                                }
+                            }
+                            Divider()
+                        }
+                        Divider()
+                        Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
+                            GridRow {
+                                Text("Nationality:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.nationality == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.nationality!)")
+                                }
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Place of Birth:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.place_of_birth == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.place_of_birth!)")
+                                }
+                            }
+                            Divider()
+                            GridRow {
+                                Text("Eyes:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.eyes == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.eyes!)")
+                                }
+                            }
+                            Divider()
+                            
+                            GridRow {
+                                Text("Weight:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.weight == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.weight!)")
+                                }
+                            }
+                            Divider()
+                            
+                            GridRow {
+                                Text("Race:")
+                                    .foregroundStyle(Color.indigo)
+                                if person.race == nil {
+                                    Text("unidentified")
+                                } else {
+                                    Text("\(person.race!.capitalized)")
+                                }
+                            }
+                            Divider()
+                        }
+                    }
+                    .font(.title2)
+
+                    Text("Reward:")
+                        .foregroundStyle(Color.indigo)
+                    if person.reward_text == nil {
+                        Text("unidentified")
+                    } else {
+                        Text("\(person.reward_text!)")
+                    }
+                    Text("Remarks:")
+                        .foregroundStyle(Color.indigo)
+                    if person.remarks == nil {
+                        Text("unidentified")
+                    } else {
+                        Text("\(person.remarks!.htmlToString())")
+                    }
+                    Text("Details:")
+                        .foregroundStyle(Color.indigo)
+                    if person.details == nil {
+                        Text("unidentified")
+                    } else {
+                        Text("\(person.details!.htmlToString())")
+                    }
+                    Text("Caution:")
+                        .foregroundStyle(Color.indigo)
+                    if person.caution == nil {
+                        Text("unidentified")
+                    } else {
+                        Text("\(person.caution!.htmlToString())")
+                    }
+                    Text("Warning:")
+                        .foregroundStyle(Color.indigo)
+                    if person.warning_message == nil {
+                        Text("unidentified")
+                    } else {
+                        Text("\(person.warning_message!)")
+                            .foregroundStyle(Color.red)
+                    }
+                    
                     
                 }
+                .font(.largeTitle)
+                
+                Spacer()
             }
-            
-            VStack(alignment: .leading) {
-                if person.images!.count > 1 {
-                    Stepper("Image:", value: $personImageIndex, in: 0...person.images!.count-1)
-                        .frame(width: 200)
-                }
-                Text("Description:")
-                    .foregroundStyle(Color.indigo)
-                Text(person.description)
-                    .font(.title2)
-                Grid(alignment: .leading, horizontalSpacing: 20, verticalSpacing: 1) {
-                    GridRow {
-                        Text("Aliases:")
-                            .foregroundStyle(Color.indigo)
-                        if person.aliases == nil {
-                            Text("unidentified")
-                        } else {
-                            if person.aliases!.count > 1 {
-                                Picker(selection: $selectAlias, label: Text("Alias:")) {
-                                    ForEach(0..<person.aliases!.count, id: \.self) {
-                                        Text("\(person.aliases![$0])")
-                                    }
-                                }
-                            } else {
-                                Text(person.aliases!.first ?? "")
-                            }
-                        }
-                    }
-                    GridRow {
-                        Text("Date(s) of Birth:")
-                            .foregroundStyle(Color.indigo)
-                        if person.dates_of_birth_used == nil {
-                            Text("unidentified")
-                        } else {
-                            if person.dates_of_birth_used!.count > 1 {
-                                //                            Stepper("\(person.dates_of_birth_used![dobIndex])", value: $dobIndex, in: 0...person.dates_of_birth_used!.count-1)
-                                Picker(selection: $selectDOB, label: Text("DOB:")) {
-                                    ForEach(0..<person.dates_of_birth_used!.count, id: \.self) {
-                                        Text("\(person.dates_of_birth_used![$0])")
-                                    }
-                                }
-                                
-                            } else {
-                                Text("\(person.dates_of_birth_used!.first ?? "unidentified")")
-                            }
-                        }
-                    }
-                    GridRow {
-                        Text("Place of Birth:")
-                            .foregroundStyle(Color.indigo)
-                        if person.place_of_birth == nil {
-                            Text("unidentified")
-                        } else {
-                            Text("\(person.place_of_birth!)")
-                        }
-                    }
-                    GridRow {
-                        Text("Hair:")
-                            .foregroundStyle(Color.indigo)
-                        if person.hair == nil {
-                            Text("unidentified")
-                        } else {
-                            Text("\(person.hair!)")
-                        }
-                    }
-                    GridRow {
-                        Text("Eyes:")
-                            .foregroundStyle(Color.indigo)
-                        if person.eyes == nil {
-                            Text("unidentified")
-                        } else {
-                            Text("\(person.eyes!)")
-                        }
-                    }
-                    GridRow {
-                        Text("Height:")
-                            .foregroundStyle(Color.indigo)
-//                        if person.height_min == nil && person.height_max == nil {
-//                            Text("unidentified")
-//                        } else if person.height_min == nil {
-//                            Text("\(person.height_max!)")
-//                        } else if person.height_max == nil {
-//                            Text("\(person.height_min!)")
-//                        } else {
-//                            Text("\(person.height_min!) - \(person.height_max!)")
-//                        }
-                        if person.height == nil {
-                            Text("unidentified")
-                        } else {
-                            Text("\(person.height!)")
-                        }
-                    }
-                    GridRow {
-                        Text("Weight:")
-                            .foregroundStyle(Color.indigo)
-                        if person.weight == nil {
-                            Text("unidentified")
-                        } else {
-                            Text("\(person.weight!)")
-                        }
-                    }
-                    GridRow {
-                        Text("Sex:")
-                            .foregroundStyle(Color.indigo)
-                        if person.sex == nil {
-                            Text("unidentified")
-                        } else {
-                            Text("\(person.sex!)")
-                        }
-                    }
-                    GridRow {
-                        Text("Race:")
-                            .foregroundStyle(Color.indigo)
-                        if person.race == nil {
-                            Text("unidentified")
-                        } else {
-                            Text("\(person.race!.capitalized)")
-                        }
-                    }
-                }
-                .font(.title2)
-                
-                Text("Reward:")
-                    .foregroundStyle(Color.indigo)
-                if person.reward_text == nil {
-                    Text("unidentified")
-                } else {
-                    Text("\(person.reward_text!)")
-                }
-                Text("Remarks:")
-                    .foregroundStyle(Color.indigo)
-                if person.remarks == nil {
-                    Text("unidentified")
-                } else {
-                    Text("\(person.remarks!.htmlToString())")
-                }
-                Text("Details:")
-                    .foregroundStyle(Color.indigo)
-                if person.details == nil {
-                    Text("unidentified")
-                } else {
-                    Text("\(person.details!.htmlToString())")
-                }
-                
-                
-            }
-            .font(.largeTitle)
-            
-            Spacer()
+            .listStyle(.plain)
         }
     }
 }
@@ -253,7 +294,8 @@ extension DetailView {
                               description: "I am a very good boy.",
                               subjects: ["Wanted English Spriger Spaniel"],
                               aliases: ["Buddy","Good Boy"],
-                              images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg")],
+                              images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg"),
+                                       PersonImage(large: "http://www.nanjay.com/NorbertBridgeAngel.jpg")],
                               dates_of_birth_used: ["September 7, 2014"],
                               place_of_birth: "Nanjay, Markham, ON, Canada",
                               hair: "Black and White",
@@ -265,7 +307,10 @@ extension DetailView {
                               sex: "Neutered Male",
                               race: "English Springer Spaniel",
                               reward_text: "Hugs and Kisses",
-                              remarks: "Approachable and friendly"
+                              remarks: "Approachable and friendly",
+                              caution: "Might beg for treats",
+                              warning_message: "Might jump and lick",
+                              nationality: "Canadian"
                              )
     )
     
