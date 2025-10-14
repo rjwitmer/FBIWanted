@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WebKit
 
 struct DetailView: View {
     let person: Person
@@ -109,19 +110,14 @@ struct DetailView: View {
                             GridRow {
                                 Text("Height:")
                                     .foregroundStyle(Color.indigo)
-        //                        if person.height_min == nil && person.height_max == nil {
-        //                            Text("unidentified")
-        //                        } else if person.height_min == nil {
-        //                            Text("\(person.height_max!)")
-        //                        } else if person.height_max == nil {
-        //                            Text("\(person.height_min!)")
-        //                        } else {
-        //                            Text("\(person.height_min!) - \(person.height_max!)")
-        //                        }
-                                if person.height == nil {
+                                if person.height_min == nil && person.height_max == nil {
                                     Text("unidentified")
+                                } else if person.height_min == nil || person.height_max == person.height_min {
+                                    Text(String(person.height_max!) + " inches")
+                                } else if person.height_max == nil {
+                                    Text(String(person.height_min!) + " inches")
                                 } else {
-                                    Text("\(person.height!)")
+                                    Text("\(person.height_min!) - \(person.height_max!) inches")
                                 }
                             }
                             Divider()
@@ -195,41 +191,59 @@ struct DetailView: View {
                     }
                     .font(.title2)
 
-                    Text("Reward:")
-                        .foregroundStyle(Color.indigo)
-                    if person.reward_text == nil {
-                        Text("unidentified")
-                    } else {
-                        Text("\(person.reward_text!)")
-                    }
-                    Text("Remarks:")
-                        .foregroundStyle(Color.indigo)
-                    if person.remarks == nil {
-                        Text("unidentified")
-                    } else {
-                        Text("\(person.remarks!.htmlToString())")
-                    }
-                    Text("Details:")
-                        .foregroundStyle(Color.indigo)
-                    if person.details == nil {
-                        Text("unidentified")
-                    } else {
-                        Text("\(person.details!.htmlToString())")
-                    }
-                    Text("Caution:")
-                        .foregroundStyle(Color.indigo)
-                    if person.caution == nil {
-                        Text("unidentified")
-                    } else {
-                        Text("\(person.caution!.htmlToString())")
-                    }
-                    Text("Warning:")
-                        .foregroundStyle(Color.indigo)
-                    if person.warning_message == nil {
-                        Text("unidentified")
-                    } else {
-                        Text("\(person.warning_message!)")
-                            .foregroundStyle(Color.red)
+                    VStack (alignment: .leading){
+                        Text("Reward:")
+                            .foregroundStyle(Color.indigo)
+                        if person.reward_text == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.reward_text!)")
+                        }
+                        Text("Remarks:")
+                            .foregroundStyle(Color.indigo)
+                        if person.remarks == nil {
+                            Text("unidentified")
+                        } else {
+                            if person.remarks!.contains("<") {
+                                HTMLStringView(htmlContent: person.remarks!)
+                                    .frame(height: 200)
+                            } else {
+                                Text("\(person.remarks!)")
+                            }
+                        }
+
+                        Text("Details:")
+                            .foregroundStyle(Color.indigo)
+                        if person.details == nil {
+                            Text("unidentified")
+                        } else {
+                            if person.details!.contains("<") {
+                                HTMLStringView(htmlContent: person.details!)
+                                    .frame(height: 200)
+                            } else {
+                                Text("\(person.details!)")
+                            }
+                        }
+                        Text("Caution:")
+                            .foregroundStyle(Color.indigo)
+                        if person.caution == nil {
+                            Text("unidentified")
+                        } else {
+                            if person.caution!.contains("<") {
+                                HTMLStringView(htmlContent: person.caution!)
+                                    .frame(height: 200)
+                            } else {
+                                Text("\(person.caution!)")
+                            }
+                        }
+                        Text("Warning:")
+                            .foregroundStyle(Color.indigo)
+                        if person.warning_message == nil {
+                            Text("unidentified")
+                        } else {
+                            Text("\(person.warning_message!)")
+                                .foregroundStyle(Color.red)
+                        }
                     }
                     
                     
@@ -240,14 +254,6 @@ struct DetailView: View {
             }
             .listStyle(.plain)
         }
-    }
-}
-
-extension String {
-    func htmlToString() -> String {
-        return  try! NSAttributedString(data: self.data(using: .utf8)!,
-                                        options: [.documentType: NSAttributedString.DocumentType.html],
-                                        documentAttributes: nil).string
     }
 }
 
@@ -289,25 +295,45 @@ extension DetailView {
     }
 }
 
+struct HTMLStringView: UIViewRepresentable {
+    let htmlContent: String
+    
+    func makeUIView(context: Context) -> WKWebView {
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        uiView.loadHTMLString(htmlContent, baseURL: nil)
+    }
+}
+//extension String {
+//    func htmlToString() -> String {
+//        return  try! NSAttributedString(data: self.data(using: .utf8)!,
+//                                        options: [.documentType: NSAttributedString.DocumentType.html],
+//                                        documentAttributes: nil).string
+//    }
+//}
+
 #Preview {
     DetailView(person: Person(title: "Dante Witmer",
                               description: "I am a very good boy.",
                               subjects: ["Wanted English Spriger Spaniel"],
                               aliases: ["Buddy","Good Boy"],
                               images: [PersonImage(large: "https://www.dogbreedinfo.com/images25/EnglishSpringerSpanielPureBredDogBechamGroomed10MonthsOld1.jpg"),
-                                       PersonImage(large: "http://www.nanjay.com/NorbertBridgeAngel.jpg")],
+                                       PersonImage(large: "https://www.akc.org/wp-content/uploads/2017/11/English-Springer-Spaniel-On-White-011.jpg")],
                               dates_of_birth_used: ["September 7, 2014"],
                               place_of_birth: "Nanjay, Markham, ON, Canada",
                               hair: "Black and White",
                               eyes: "Big and Brown",
-                              height: "15 in",
-//                              height_min: "15 in",
-//                              height_max: "16 in"
-                              weight: "19.2 Kg",
+//                              height: "15 in",
+                              height_min: 15,
+                              height_max: 16,
+                              weight: "38 pounds",
                               sex: "Neutered Male",
                               race: "English Springer Spaniel",
                               reward_text: "Hugs and Kisses",
                               remarks: "Approachable and friendly",
+                              details: "He's my buddy!",
                               caution: "Might beg for treats",
                               warning_message: "Might jump and lick",
                               nationality: "Canadian"

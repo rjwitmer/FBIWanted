@@ -19,9 +19,9 @@ struct Person: Codable, Identifiable {
     var place_of_birth: String?  // Birth Place, if entered
     var hair: String?  // Hair colour, if entered
     var eyes: String?  // Eye colour, if entered
-    var height: String?  // Height, if entered
-//    var height_min:String?  // Minimum height, if entered - doesn't load
-//    var height_max: String?  // Maximum height, if entered - doesn't load
+//    var height: String?  // Height, if entered
+    var height_min: Int?  // Minimum height, if entered - doesn't load
+    var height_max: Int?  // Maximum height, if entered - doesn't load
     var weight: String?  // Weight, if entered
     var sex: String?  // Sex, if entered
     var race:String?  // Race, if entered
@@ -42,9 +42,9 @@ struct Person: Codable, Identifiable {
         case place_of_birth
         case hair
         case eyes
-        case height
-//        case height_min
-//        case height_max
+//        case height
+        case height_min
+        case height_max
         case weight
         case sex
         case race
